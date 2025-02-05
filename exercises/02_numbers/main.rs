@@ -4,7 +4,18 @@ fn print_result(num: i32) {
 }
 ////////// DO NOT CHANGE ABOVE HERE /////////
 
-// TODO: create `num!()` macro.
+macro_rules! num {
+    // 这里传入一个标志token用于匹配, 不是rust变量或者宏变量
+    (one) => {
+        1
+    };
+    (two) => {
+        2
+    };
+    (three) => {
+        3
+    }
+}
 
 ////////// DO NOT CHANGE BELOW HERE /////////
 

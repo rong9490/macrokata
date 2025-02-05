@@ -5,6 +5,7 @@ fn print_result(num: i32) {
 ////////// DO NOT CHANGE ABOVE HERE /////////
 
 macro_rules! math {
+    // 美元$表示宏变量, 类型是 literal字面量
     ($first:literal plus $second:literal) => {
         $first + $second
     };

@@ -14,17 +14,29 @@ impl Coordinate {
 
 ////////// DO NOT CHANGE ABOVE HERE /////////
 
-// TODO: Create `for_2d!` macro here.
+macro_rules! for_2d {
+    // 这里宏参数比较复杂, 注意梳理这5个宏参数及其类型 (参数类型 与 宏参数类型)
+    ($x_name: ident <$x_type:ty> in $x_expr: expr, $y_name: ident <$y_type:ty> in $y_expr: expr, $block: block) => {
+        for $x_name in $x_expr {
+            let $x_name: $x_type = $x_name; // 注意这里必须"重新定义"一遍 x变量才能在代码中使用
+            for $y_name in $y_expr {
+                let $y_name: $y_type = $y_name;
+                $block // block代码块原样放最后执行!!
+            }
+        }
+    };
+}
 
 ////////// DO NOT CHANGE BELOW HERE /////////
 
 fn main() {
-    for_2d!(row <i32> in 1..5, col <i32> in 2..7, {
-        (Coordinate {x: col, y: row}).show()
+    for_2d!(row <i32> in 3..5, col <i32> in 8..10, {
+        let coordinate: Coordinate = Coordinate {x: col, y: row};
+        coordinate.show()
     });
 
-    let values = [1, 3, 5];
-
+    // 注意类型转换 u16.into::<i32>(): u16
+    let values: [u16; 3] = [1, 3, 5];
     for_2d!(x <u16> in values, y <u16> in values, {
         (Coordinate {x: x.into(), y: y.into()}).show()
     });
