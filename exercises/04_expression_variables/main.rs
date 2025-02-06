@@ -5,9 +5,9 @@ fn print_result(num: i32) {
 ////////// DO NOT CHANGE ABOVE HERE /////////
 
 macro_rules! math {
-    // expr标量, 不能使用 literal
-    ($e: expr, plus, $v: expr) => {
-        $e + $v
+    // expr表达式, 不能使用 literal字面量
+    ($a: expr, plus, $b: expr) => {
+        $a + $b
     };
     (square $a: expr) => {
         $a * $a
@@ -15,7 +15,7 @@ macro_rules! math {
 }
 
 macro_rules! broken_macro {
-    // 需要有个逗号, 否则无法解析
+    // 需要有个逗号, 否则表达式无法解析 'a + b please'
     ($a:expr, please) => { $a }
 }
 

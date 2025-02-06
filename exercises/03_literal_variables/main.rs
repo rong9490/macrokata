@@ -6,6 +6,7 @@ fn print_result(num: i32) {
 
 macro_rules! math {
     // literal 字面量
+    // plus 是标志 token
     ($a: literal plus $b: literal) => {
         $a + $b
     };

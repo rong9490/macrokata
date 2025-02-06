@@ -15,6 +15,7 @@ enum NumberType {
     UnknownBecauseExpr(i32),
 }
 
+// 枚举上实现show实例方法
 impl NumberType {
     fn show(&self) {
         println!("{self:#?}");
@@ -23,24 +24,34 @@ impl NumberType {
 ////////// DO NOT CHANGE ABOVE HERE /////////
 
 // Sum together at least two expressions.
+
+// HACK 注意区别
 macro_rules! sum {
-    ($($expr:expr),+ , $lastexpr:expr) => {
-        $($expr + )+ $lastexpr
+    // 前面有若干个表达式, 最后有一个表达式
+    // ($($expr: expr),+ , $lastexpr: expr) => {
+    //     $($expr + )+ $lastexpr
+    // }
+
+    // 前面有一个表达式, 最后有若干个表达式
+    ($firstexpr:expr , $($expr:expr),+) => {
+        $firstexpr $( + $expr )+
     }
 }
 
+// 这个宏: 有4个匹配模式分支, 分别是传 表达式, 代码块, 字面量(正数, 负数)
+// 跟顺序有关系嘛 -> 无关
 macro_rules! get_number_type {
-    ( $e:expr ) => {
-        NumberType::UnknownBecauseExpr($e)
+    ( -$negative: literal ) => {
+        NumberType::NegativeNumber(-$negative)
     };
-    ( $block:block ) => {
-        NumberType::UnknownBecauseBlock($block)
-    };
-    ( $positive:literal ) => {
+    ( $positive: literal ) => {
         NumberType::PositiveNumber($positive)
     };
-    ( -$negative:literal ) => {
-        NumberType::NegativeNumber(-$negative)
+    ( $block: block ) => {
+        NumberType::UnknownBecauseBlock($block)
+    };
+    ( $e: expr ) => {
+        NumberType::UnknownBecauseExpr($e)
     };
 }
 

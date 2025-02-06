@@ -16,7 +16,10 @@ impl Coordinate {
 
 macro_rules! for_2d {
     // 这里宏参数比较复杂, 注意梳理这5个宏参数及其类型 (参数类型 与 宏参数类型)
+    // ident 是宏变量类型 ; <$x_type:ty> 是普通变量类型
+    // block 类型是代码块类型
     ($x_name: ident <$x_type:ty> in $x_expr: expr, $y_name: ident <$y_type:ty> in $y_expr: expr, $block: block) => {
+        // 上面的传参只是宏的传参
         for $x_name in $x_expr {
             let $x_name: $x_type = $x_name; // 注意这里必须"重新定义"一遍 x变量才能在代码中使用
             for $y_name in $y_expr {

@@ -4,7 +4,20 @@ fn print_vec<V: std::fmt::Debug>(vec: &Vec<V>) {
 }
 ////////// DO NOT CHANGE ABOVE HERE /////////
 
-// TODO: create `graph!()` macro.
+macro_rules! graph {
+    // 最外层表示子表达式次数0次1次或多次
+    // 内层表达式, 构造出一个元组的模式, 用于匹配(逗号分隔)
+    ($($from: literal -> ($($to: literal),*);)*) => {
+        {
+            let mut vec = Vec::new();
+
+            // 重复执行子表达式
+            $( $(vec.push(($from, $to));)* )*
+
+            vec
+        }
+    }
+}
 
 ////////// DO NOT CHANGE BELOW HERE /////////
 

@@ -1,4 +1,16 @@
-// TODO: Create the `curry!()` macro.
+// TODO ??
+macro_rules! curry {
+    // 第一条分支:
+    (_, $block: block) => {$block};
+
+    // 第二条分支: 若干个中间表达式
+    (($argident: ident : $argtype:ty) => $(($argidents:ident: $argtypes:ty) =>)* _, $block:block) => {
+        move |$argident: $argtype| {
+            print_curried_argument($argident);
+            curry!($(($argidents: $argtypes) =>)* _, $block)
+        }
+    };
+}
 
 ////////// DO NOT CHANGE BELOW HERE /////////
 
