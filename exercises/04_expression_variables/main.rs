@@ -5,7 +5,8 @@ fn print_result(num: i32) {
 ////////// DO NOT CHANGE ABOVE HERE /////////
 
 macro_rules! math {
-    // expr表达式, 不能使用 literal字面量
+    // expr与literal的区别, 前者是表达式, 后者是字面量
+    // var是变量表达式
     ($a: expr, plus, $b: expr) => {
         $a + $b
     };
@@ -15,7 +16,7 @@ macro_rules! math {
 }
 
 macro_rules! broken_macro {
-    // 需要有个逗号, 否则表达式无法解析 'a + b please'
+    // 需要有个"逗号", 表示token解析语义的分隔, 否则表达式无法解析 'a + b please'
     ($a:expr, please) => { $a }
 }
 

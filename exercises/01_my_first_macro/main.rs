@@ -5,6 +5,7 @@ fn show_output() {
 }
 ////////// DO NOT CHANGE ABOVE HERE /////////
 
+// 固定声明格式!
 macro_rules! show_output {
     () => {
         show_output()

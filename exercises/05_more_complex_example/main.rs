@@ -14,14 +14,15 @@ impl Coordinate {
 
 ////////// DO NOT CHANGE ABOVE HERE /////////
 
+// 复杂的宏, 对宏参数进行逐步拆解分析
 macro_rules! for_2d {
-    // 这里宏参数比较复杂, 注意梳理这5个宏参数及其类型 (参数类型 与 宏参数类型)
-    // ident 是宏变量类型 ; <$x_type:ty> 是普通变量类型
-    // block 类型是代码块类型
+    // 宏参数: 标识符<宏变量类型>
+    // $x_name: ident <$x_type:ty> 冒号ty表示是type类型 "这是宏指示符"
+    // 常见的宏指示符: ty, ident, expr, block, literal, meta, path, lifetime, tt
     ($x_name: ident <$x_type:ty> in $x_expr: expr, $y_name: ident <$y_type:ty> in $y_expr: expr, $block: block) => {
-        // 上面的传参只是宏的传参
+        // 上面的传参只是宏的传参, 不是代码块类型
         for $x_name in $x_expr {
-            let $x_name: $x_type = $x_name; // 注意这里必须"重新定义"一遍 x变量才能在代码中使用
+            let $x_name: $x_type = $x_name; // 注意这里必须"重新定义"一遍 x变量才能在代码中使用, 区别宏声明与代码块声明!!
             for $y_name in $y_expr {
                 let $y_name: $y_type = $y_name;
                 $block // block代码块原样放最后执行!!
